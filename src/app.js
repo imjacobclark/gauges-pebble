@@ -5,7 +5,7 @@ var UI = require('ui'),
 var main = new UI.Card({
     title: 'Gaug.es',
     subtitle: 'v0.1',
-    body: 'Unofficial Pebble App!'
+    body: 'Web Analytics'
 });
 
 main.show();
@@ -31,25 +31,57 @@ main.on('click', 'up', function(e) {
         }
     },    
     function(data) {
-        var menu = new UI.Menu({
+        var dashboardList = new UI.Menu({
             sections: [{
-                title: "Gaug.es",
+                title: "Select View",
                 items: data.gauges
             }]
         });
 
-        menu.on('select', function(e) {
-          var card = new UI.Card({
-            title: 'Page Views Today',
-            body: data.gauges[e.itemIndex].today.views,
-            scrollable: true,
-            style: 'large'
+        dashboardList.on('select', function(dashboardSelection) {
+          var metricList = new UI.Menu({
+              sections: [{
+                  title: "Select Metric",
+                  items: [
+                    {
+                      'title': 'Page Views',
+                    },
+                    {
+                      'title': 'People'
+                    }
+                  ]
+              }]
           });
           
-          card.show();
+          metricList.on('select', function(metricSelection) {
+            switch(metricSelection.itemIndex){
+              case 0:
+                var views = new UI.Card({
+                  title: 'Page Views',
+                  body: data.gauges[dashboardSelection.itemIndex].today.views,
+                  scrollable: true,
+                  style: 'large'
+                });
+                
+                views.show();
+              break;
+              case 1:
+                var people = new UI.Card({
+                  title: 'People',
+                  body: data.gauges[dashboardSelection.itemIndex].today.people,
+                  scrollable: true,
+                  style: 'large'
+                });
+                
+                people.show();
+              break;
+            }
+          });
+          
+          metricList.show();
         });
 
-        menu.show();
+        dashboardList.show();
     },
     function(error) {
         var card = new UI.Card({
