@@ -1,7 +1,7 @@
 # Gaug.es for Pebble
-A Gaug.es app for Pebble
+An (unofficial) Gaug.es app for Pebble!
 
-Not currently on the Pebble Store, add your API key [here](https://github.com/imjacobclark/gauges-pebble/blob/master/src/app.js#L30) and build/install manually.
+Not currently on the Pebble Store, clone this repo, add your API key [here](https://github.com/imjacobclark/gauges-pebble/blob/master/src/app.js#L30) and build/install manually.
 
 **Screenshots:**
 
